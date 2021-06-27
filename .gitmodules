@@ -1,0 +1,3 @@
+[submodule "plugins/redmine_hourglass"]
+	path = plugins/redmine_hourglass
+	url = https://github.com/arBmind/redmine_hourglass
