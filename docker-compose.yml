@@ -1,0 +1,42 @@
+version: "3.7"
+
+volumes:
+  bundle: # bundles
+  node_modules: #
+  config: # addional config
+  db: # mysql data
+  files: # redmine files
+
+services:
+  db:
+    image: mysql:5
+    restart: always
+    volumes:
+      - db:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: 'mysql'
+      MYSQL_DATABASE: 'redmine'
+      MYSQL_USER: 'redmine'
+      MYSQL_PASS: 'redmine'
+  app:
+    image: alpinelab/ruby-dev:2.6
+    command: ["rails", "server", "-b", "0.0.0.0"]
+    environment:
+      REDMINE_SECRET_KEY_BASE: supersecretkey
+      # RAILS_ENV: production
+    # run manually
+    # rake db:migrate
+    # rake redmine:plugins:migrate
+    # rake redmine:plugins
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/app
+      - files:/app/files
+      - node_modules:/app/node_modules
+      - bundle:/bundle
+      - config:/config
+    depends_on:
+      - db
