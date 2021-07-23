@@ -1,0 +1,22 @@
+
+production:
+  adapter: sqlite3
+  database: db/redmine.sqlite3
+
+development:
+#  adapter: sqlite3
+#  database: db/redmine.sqlite3
+  adapter: mysql2
+  database: redmine
+  host: db
+  username: root
+  password: mysql
+  encoding: utf8
+
+test:
+  adapter: mysql2
+  database: redmine_test
+  host: db
+  username: root
+  password: mysql
+  encoding: utf8
